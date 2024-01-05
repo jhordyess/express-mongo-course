@@ -29,8 +29,13 @@ const createAndSavePerson = async (done) => {
   }
 };
 
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+const createManyPeople = async (arrayOfPeople, done) => {
+  try {
+    const data = await Person.create(arrayOfPeople);
+    done(null, data);
+  } catch (err) {
+    done(err);
+  }
 };
 
 const findPeopleByName = (personName, done) => {
