@@ -85,7 +85,6 @@ const findEditThenSave = async (personId, done) => {
 
 const findAndUpdate = async (personName, done) => {
   const ageToSet = 20;
-
   try {
     const data = await Person.findOneAndUpdate(
       { name: personName },
@@ -107,10 +106,14 @@ const removeById = async (personId, done) => {
   }
 };
 
-const removeManyPeople = (done) => {
+const removeManyPeople = async (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  try {
+    const data = await Person.remove({ name: nameToRemove });
+    done(null, data);
+  } catch (err) {
+    done(err);
+  }
 };
 
 const queryChain = (done) => {
